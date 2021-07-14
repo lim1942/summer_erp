@@ -47,12 +47,12 @@ INSTALLED_APPS = (
     'sale',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE  = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -81,6 +81,8 @@ TEMPLATE_THEME = 'default'
 
 WSGI_APPLICATION = 'mis.wsgi.application'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -91,7 +93,7 @@ DATABASES = {
         'HOST': 'localhost',
         'NAME': 'mis',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '123456',
     }
 }
 
@@ -99,7 +101,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'zh-CN'
+LANGUAGE_CODE = 'zh-hans'
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 

@@ -1,6 +1,7 @@
 __author__ = 'zhugl'
 # created at 15-4-21 
 #python import
+import six
 from threading import local
 from django.contrib import admin
 from django.apps import apps
@@ -8,16 +9,17 @@ from django.conf import settings
 from django.contrib.admin import ModelAdmin, actions
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
-from django.core.urlresolvers import NoReverseMatch, reverse
+from django.urls import NoReverseMatch, reverse
 from django.db.models.base import ModelBase
 from django.http import Http404, HttpResponseRedirect
 from django.template.engine import Engine
 from django.template.response import TemplateResponse
-from django.utils import six
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _, ugettext_lazy
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
+from django.utils.deprecation import MiddlewareMixin
+
 
 _thread_local = local()
 
@@ -26,7 +28,7 @@ def getuser():
     return getattr(_thread_local,'user',None)
 
 
-class RequestUser(object):
+class RequestUser(MiddlewareMixin):
 
     def process_request(self,request):
         django_user = getattr(request,'user',None)
@@ -90,7 +92,7 @@ class RequestUser(object):
             try:
                 todolist = self.get_my_task(request)
                 context.update(dict(todolist = todolist))
-            except Exception,e:
+            except Exception as e:
                 pass
             # print context
             view_kwargs['extra_context'] = context
