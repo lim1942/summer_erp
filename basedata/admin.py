@@ -15,6 +15,7 @@ class ValueListItemInline(admin.TabularInline):
     model = ValueListItem
     exclude = ['group_code']
 
+    # 主键对象增加时 有三个增加栏，主键对象更新时为 0个
     def get_extra(self, request, obj=None, **kwargs):
         if obj:
             return 0
